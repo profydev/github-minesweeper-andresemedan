@@ -1,18 +1,25 @@
+# name of the workflow
 name: CI
 
+# event that triggers the workflow
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
+  # this is the only job of our workflow
   validate:
+    # the docker image that is used (a virtual Ubuntu machine)
     runs-on: ubuntu-latest
 
     steps:
+    # checkout the code from the repository
     - uses: actions/checkout@v2
 
+    # runs a node script to validate the json file
     - name: Validate Commands JSON structure
       run: node ./internal/validate-commands-json.js
     
+    # runs a node script to validate the commands 
     - name: Validate Commands
       run: node ./internal/validate-commands.js
